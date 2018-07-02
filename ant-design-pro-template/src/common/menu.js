@@ -2,27 +2,6 @@ import { isUrl } from '../utils/utils';
 
 const menuData = [
   {
-    name: 'dashboard',
-    icon: 'dashboard',
-    path: 'dashboard',
-    children: [
-      {
-        name: '分析页',
-        path: 'analysis',
-      },
-      {
-        name: '监控页',
-        path: 'monitor',
-      },
-      {
-        name: '工作台',
-        path: 'workplace',
-        // hideInBreadcrumb: true,
-        // hideInMenu: true,
-      },
-    ],
-  },
-  {
     name: '表单页',
     icon: 'form',
     path: 'form',
@@ -30,10 +9,6 @@ const menuData = [
       {
         name: '基础表单',
         path: 'basic-form',
-      },
-      {
-        name: '分步表单',
-        path: 'step-form',
       },
       {
         name: '高级表单',
@@ -50,14 +25,6 @@ const menuData = [
       {
         name: '查询表格',
         path: 'table-list',
-      },
-      {
-        name: '标准列表',
-        path: 'basic-list',
-      },
-      {
-        name: '卡片列表',
-        path: 'card-list',
       },
       {
         name: '搜索列表',
@@ -92,21 +59,6 @@ const menuData = [
         name: '高级详情页',
         path: 'advanced',
         authority: 'admin',
-      },
-    ],
-  },
-  {
-    name: '结果页',
-    icon: 'check-circle-o',
-    path: 'result',
-    children: [
-      {
-        name: '成功',
-        path: 'success',
-      },
-      {
-        name: '失败',
-        path: 'fail',
       },
     ],
   },
@@ -151,6 +103,52 @@ const menuData = [
       {
         name: '注册结果',
         path: 'register-result',
+      },
+    ],
+  },
+  {
+    name: '调度中心',
+    icon: 'calculator',
+    path: 'dispatch',
+    children: [
+      {
+        name: '调度管理',
+        path: 'management',
+      },
+      {
+        name: '调度分配',
+        path: 'distribution',
+      },
+      {
+        name: '待调度',
+        path: 'wait',
+      },
+      {
+        name: '被更换司机列表',
+        path: 'list',
+      },
+    ],
+  },
+  {
+    name: '分配中心',
+    icon: 'fork',
+    path: 'distribution',
+    children: [
+      {
+        name: '报价分配规则',
+        path: 'quote',
+      },
+      {
+        name: '调度分配规则',
+        path: 'dispatch',
+      },
+      {
+        name: '绑定经纪人',
+        path: 'bind',
+      },
+      {
+        name: '特殊经纪人设置',
+        path: 'setting',
       },
     ],
   },

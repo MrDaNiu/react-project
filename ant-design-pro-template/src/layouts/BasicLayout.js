@@ -76,10 +76,6 @@ const query = {
   },
   'screen-xl': {
     minWidth: 1200,
-    maxWidth: 1599,
-  },
-  'screen-xxl': {
-    minWidth: 1600,
   },
 };
 
@@ -93,11 +89,9 @@ class BasicLayout extends React.PureComponent {
     location: PropTypes.object,
     breadcrumbNameMap: PropTypes.object,
   };
-
   state = {
     isMobile,
   };
-
   getChildContext() {
     const { location, routerData } = this.props;
     return {
@@ -105,27 +99,23 @@ class BasicLayout extends React.PureComponent {
       breadcrumbNameMap: getBreadcrumbNameMap(getMenuData(), routerData),
     };
   }
-
   componentDidMount() {
     this.enquireHandler = enquireScreen(mobile => {
       this.setState({
         isMobile: mobile,
       });
     });
-    const { dispatch } = this.props;
-    dispatch({
+    this.props.dispatch({
       type: 'user/fetchCurrent',
     });
   }
-
   componentWillUnmount() {
     unenquireScreen(this.enquireHandler);
   }
-
   getPageTitle() {
     const { routerData, location } = this.props;
     const { pathname } = location;
-    let title = 'Ant Design Pro';
+    let title = '福佑卡车';
     let currRouterData = null;
     // match params path
     Object.keys(routerData).forEach(key => {
@@ -134,11 +124,10 @@ class BasicLayout extends React.PureComponent {
       }
     });
     if (currRouterData && currRouterData.name) {
-      title = `${currRouterData.name} - Ant Design Pro`;
+      title = `${currRouterData.name} - 福佑卡车`;
     }
     return title;
   }
-
   getBaseRedirect = () => {
     // According to the url parameter to redirect
     // 这里是重定向的,重定向到 url 的 redirect 参数所示地址
@@ -159,46 +148,37 @@ class BasicLayout extends React.PureComponent {
     }
     return redirect;
   };
-
   handleMenuCollapse = collapsed => {
-    const { dispatch } = this.props;
-    dispatch({
+    this.props.dispatch({
       type: 'global/changeLayoutCollapsed',
       payload: collapsed,
     });
   };
-
   handleNoticeClear = type => {
     message.success(`清空了${type}`);
-    const { dispatch } = this.props;
-    dispatch({
+    this.props.dispatch({
       type: 'global/clearNotices',
       payload: type,
     });
   };
-
   handleMenuClick = ({ key }) => {
-    const { dispatch } = this.props;
     if (key === 'triggerError') {
-      dispatch(routerRedux.push('/exception/trigger'));
+      this.props.dispatch(routerRedux.push('/exception/trigger'));
       return;
     }
     if (key === 'logout') {
-      dispatch({
+      this.props.dispatch({
         type: 'login/logout',
       });
     }
   };
-
   handleNoticeVisibleChange = visible => {
-    const { dispatch } = this.props;
     if (visible) {
-      dispatch({
+      this.props.dispatch({
         type: 'global/fetchNotices',
       });
     }
   };
-
   render() {
     const {
       currentUser,
@@ -209,7 +189,6 @@ class BasicLayout extends React.PureComponent {
       match,
       location,
     } = this.props;
-    const { isMobile: mb } = this.state;
     const bashRedirect = this.getBaseRedirect();
     const layout = (
       <Layout>
@@ -222,7 +201,7 @@ class BasicLayout extends React.PureComponent {
           menuData={getMenuData()}
           collapsed={collapsed}
           location={location}
-          isMobile={mb}
+          isMobile={this.state.isMobile}
           onCollapse={this.handleMenuCollapse}
         />
         <Layout>
@@ -233,7 +212,7 @@ class BasicLayout extends React.PureComponent {
               fetchingNotices={fetchingNotices}
               notices={notices}
               collapsed={collapsed}
-              isMobile={mb}
+              isMobile={this.state.isMobile}
               onNoticeClear={this.handleNoticeClear}
               onCollapse={this.handleMenuCollapse}
               onMenuClick={this.handleMenuClick}
@@ -263,27 +242,15 @@ class BasicLayout extends React.PureComponent {
             <GlobalFooter
               links={[
                 {
-                  key: 'Pro 首页',
-                  title: 'Pro 首页',
-                  href: 'http://pro.ant.design',
-                  blankTarget: true,
-                },
-                {
-                  key: 'github',
-                  title: <Icon type="github" />,
-                  href: 'https://github.com/ant-design/ant-design-pro',
-                  blankTarget: true,
-                },
-                {
-                  key: 'Ant Design',
-                  title: 'Ant Design',
-                  href: 'http://ant.design',
+                  key: '福佑卡车官网',
+                  title: '福佑卡车官网',
+                  href: 'http://www.fuyoukache.com',
                   blankTarget: true,
                 },
               ]}
               copyright={
                 <Fragment>
-                  Copyright <Icon type="copyright" /> 2018 蚂蚁金服体验技术部出品
+                  版权所有 <Icon type="copyright" /> 2015 福佑卡车
                 </Fragment>
               }
             />

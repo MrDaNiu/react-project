@@ -120,25 +120,25 @@ export const getRouterData = app => {
     //   component: dynamicWrapper(app, [], () => import('../routes/User/SomeComponent')),
     // },
     '/dispatch/management': {
-      component: dynamicWrapper(app, [], () => import('../routes/Dispatch/Management')),
+      component: dynamicWrapper(app, ['dispatchCenter'], () => import('../routes/Dispatch/Management')),
     },
     '/dispatch/distribution': {
-      component: dynamicWrapper(app, [], () => import('../routes/Dispatch/Distribution')),
+      component: dynamicWrapper(app, ['dispatchCenter'], () => import('../routes/Dispatch/Distribution')),
     },
     '/dispatch/wait': {
-      component: dynamicWrapper(app, [], () => import('../routes/Dispatch/Wait')),
+      component: dynamicWrapper(app, ['dispatchCenter'], () => import('../routes/Dispatch/Wait')),
     },
     '/dispatch/list': {
-      component: dynamicWrapper(app, [], () => import('../routes/Dispatch/List')),
+      component: dynamicWrapper(app, ['dispatchCenter'], () => import('../routes/Dispatch/List')),
     },
     '/distribution/dispatch': {
-      component: dynamicWrapper(app, [], () => import('../routes/Distribution/Dispatch')),
+      component: dynamicWrapper(app, ['distributionCenter'], () => import('../routes/Distribution/Dispatch')),
     },
     '/distribution/bind': {
-      component: dynamicWrapper(app, [], () => import('../routes/Distribution/Bind')),
+      component: dynamicWrapper(app, ['distributionCenter'], () => import('../routes/Distribution/Bind')),
     },
     '/distribution/setting': {
-      component: dynamicWrapper(app, [], () => import('../routes/Distribution/Setting')),
+      component: dynamicWrapper(app, ['distributionCenter'], () => import('../routes/Distribution/Setting')),
     },
   };
   // Get name from ./menu.js or just set it in the router data.

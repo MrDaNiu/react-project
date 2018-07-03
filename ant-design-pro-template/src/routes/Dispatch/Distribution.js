@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, Input, Col, Select, Table, Button } from 'antd';
-import { TaskAllList } from '../../services/dispatch';
+// import { TaskAllList } from '../../services/dispatch';
 
 const Option = Select.Option;
 const columns = [
@@ -71,12 +71,12 @@ export default class Dashboard extends React.Component {
   getData = () => {
     this.setState({ loading: true });
     let params = Object.assign({}, this.state.params);
-    TaskAllList(params).then(response => {
-      this.setState({
-        dataSource: response.data,
-        loading: false,
-      });
-    });
+    // TaskAllList(params).then(response => {
+    //   this.setState({
+    //     dataSource: response.data,
+    //     loading: false,
+    //   });
+    // });
   };
 
   Reset = () => {};

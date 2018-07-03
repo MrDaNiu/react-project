@@ -27,4 +27,12 @@ export default {
   disableDynamicImport: true,
   publicPath: '/',
   hash: true,
+
+  proxy: {
+    "/api": {
+      "target": "http://mock.fuyoukache.com/mock/5b21d9d24d567f0d2a9ba2f5/dispatch/api",
+      "changeOrigin": true,
+      "pathRewrite": { "^/api" : "" }
+    }
+  },
 };

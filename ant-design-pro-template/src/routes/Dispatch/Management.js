@@ -1,6 +1,7 @@
 import React from 'react';
+import { connect } from 'dva';
 import { Row, Input, Col, Select, Table, Button } from 'antd';
-import { getSchedulerManageList } from '../../services/dispatch';
+import { getSchedulerManageList } from '../../services/dispatchCenter';
 
 const Option = Select.Option;
 const columns = [
@@ -21,17 +22,25 @@ const columns = [
     dataIndex: 'line',
     key: 'line',
     align: 'center',
+    render: (text, record) => {
+      let startAddress = [record.startProvinceName, record.startCityName].join(' ');
+      let endAddress = [record.endProvinceName, record.endCityName].join(' ');
+      return ([startAddress, endAddress].join('-'));
+    },
   },
   {
     title: '车长/车型',
     dataIndex: 'carLength',
     key: 'carLength',
     align: 'center',
+    render: (text, record) => {
+      return ([record.carLengthName, record.carModelName].join('/'));
+    },
   },
   {
     title: '调度人',
-    dataIndex: 'customerName',
-    key: 'customerName',
+    dataIndex: 'adminName',
+    key: 'adminName',
     align: 'center',
   },
   {
@@ -47,25 +56,25 @@ const columns = [
     align: 'center',
   },
   {
-    title: '定位状态',
-    dataIndex: 'locationStatus',
-    key: 'locationStatus',
-    align: 'center',
-  },
-  {
     title: '司机运费',
-    dataIndex: 'driverFee',
-    key: 'driverFee',
+    dataIndex: 'financeInfo',
+    key: 'financeInfo',
     align: 'center',
+    render: (text, record) => {
+      return record.financeInfo && record.financeInfo.transFee ? record.financeInfo.transFee : '';
+    },
   },
   {
     title: '司机押金',
-    dataIndex: 'driverDeposit',
-    key: 'driverDeposit',
+    dataIndex: 'depositAmount',
+    key: 'depositAmount',
     align: 'center',
   },
 ];
-
+@connect(({ dispatchCenter, loading }) => ({
+  dispatchCenter,
+  loading: loading.models.dispatchCenter,
+}))
 export default class Dashboard extends React.Component {
   constructor(props) {
     super(props);
@@ -87,19 +96,9 @@ export default class Dashboard extends React.Component {
   }
 
   getData = () => {
-    this.setState({ loading: true });
-    let params = Object.assign({}, this.state.params);
-    getSchedulerManageList(params).then(response => {
-      if (response && response.data && response.data.list) {
-        this.setState({
-          dataSource: response.data.list,
-          loading: false,
-        });
-      } else {
-        this.setState({
-          loading: false,
-        });
-      }
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'dispatchCenter/fetchManageList',
     });
   };
 
@@ -107,9 +106,12 @@ export default class Dashboard extends React.Component {
   };
 
   render() {
+    const {
+      dispatchCenter: { dispatchList },
+      loading,
+    } = this.props;
     return (
       <div className="gutter-example button-demo">
-        {/*<BreadcrumbCustom first='调度中心' second='调度管理'/>*/}
         <Row gutter={20}>
           <Col className="row-glob search-row" lg={8} sm={12} xs={24}>
             <label htmlFor="orderSn">运单号</label>
@@ -180,7 +182,7 @@ export default class Dashboard extends React.Component {
           </Col>
         </Row>
         <Row>
-          <Table dataSource={this.state.dataSource} columns={columns}/>
+          <Table dataSource={dispatchList} columns={columns} loading={loading}/>
         </Row>
       </div>
     );

@@ -138,6 +138,8 @@
 // };
 //
 // export default (noProxy ? {} : delay(proxy, 1000));
-export default {
-  'GET /(.*)': ' http://mock.fuyoukache.com/mock/5b21d9d24d567f0d2a9ba2f5/dispatch/',
-};
+
+
+// export default {
+//   'GET /(.*)': ' http://mock.fuyoukache.com/mock/5b21d9d24d567f0d2a9ba2f5/dispatch/',
+// };

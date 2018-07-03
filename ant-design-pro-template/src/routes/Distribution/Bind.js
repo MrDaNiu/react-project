@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, Input, Col, Select, Table, Button } from 'antd';
-import { BindAdminList } from '../../services/dispatch';
+// import { BindAdminList } from '../../services/dispatch';
 
 const columns = [
   {
@@ -44,14 +44,14 @@ export default class Dashboard extends React.Component {
   }
 
   getData = () => {
-    this.setState({ loading: true });
-    let params = Object.assign({}, this.state.params);
-    BindAdminList(params).then(response => {
-      this.setState({
-        dataSource: response.data,
-        loading: false,
-      });
-    });
+    // this.setState({ loading: true });
+    // let params = Object.assign({}, this.state.params);
+    // BindAdminList(params).then(response => {
+    //   this.setState({
+    //     dataSource: response.data,
+    //     loading: false,
+    //   });
+    // });
   };
 
   AddConfig = () => {};

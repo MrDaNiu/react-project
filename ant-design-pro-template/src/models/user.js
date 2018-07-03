@@ -1,4 +1,4 @@
-import { query as queryUsers, queryCurrent } from '../services/user';
+import { queryCurrent } from '../services/user';
 
 export default {
   namespace: 'user',
@@ -28,7 +28,7 @@ export default {
     saveCurrentUser(state, action) {
       return {
         ...state,
-        currentUser: action.payload.property.user || {},
+        currentUser: (action.payload && action.payload.property && action.payload.property.user) || {},
       };
     },
   },

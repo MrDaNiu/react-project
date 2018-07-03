@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, Input, Col, Select, Table, Button } from 'antd';
-import { getChangedDriverList } from '../../services/dispatch';
+import { getChangedDriverList } from '../../services/dispatchCenter';
 
 const Option = Select.Option;
 const columns = [
@@ -90,7 +90,6 @@ export default class Dashboard extends React.Component {
   render() {
     return (
       <div className="gutter-example button-demo">
-        {/*<BreadcrumbCustom first="调度中心" second="被更换司机列表"/>*/}
         <Row gutter={20}>
           <Col className="row-glob search-row" lg={8} sm={12} xs={24}>
             <label htmlFor="orderSn">运单号</label>

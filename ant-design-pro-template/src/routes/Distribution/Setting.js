@@ -1,6 +1,5 @@
 import React from 'react';
 import { Row } from 'antd';
-// import BreadcrumbCustom from '../BreadcrumbCustom';
 
 export default class Dashboard extends React.Component {
   render() {

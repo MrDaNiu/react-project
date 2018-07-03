@@ -1,15 +1,13 @@
 import React from 'react';
 import { Row, Input, Col, Select, Table, Button } from 'antd';
-// import BreadcrumbCustom from '../BreadcrumbCustom';
-import { DriverList } from '../../services/dispatch';
-// import '../../style/dispatch.less';
+import { getChangedDriverList } from '../../services/dispatch';
 
 const Option = Select.Option;
 const columns = [
   {
     title: '操作',
-    dataIndex: 'orderSn',
-    key: 'orderSn',
+    dataIndex: '',
+    key: '',
     align: 'center',
   },
   {
@@ -73,11 +71,17 @@ export default class Dashboard extends React.Component {
   getData = () => {
     this.setState({ loading: true });
     let params = Object.assign({}, this.state.params);
-    DriverList(params).then(response => {
-      this.setState({
-        dataSource: response.data,
-        loading: false,
-      });
+    getChangedDriverList(params).then(response => {
+      if(response && response.data && response.data.status == 0){
+        this.setState({
+          dataSource: response.data,
+          loading: false,
+        });
+      }else{
+        this.setState({
+          loading: false,
+        });
+      }
     });
   };
 

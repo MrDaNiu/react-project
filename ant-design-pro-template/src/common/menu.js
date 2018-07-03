@@ -135,10 +135,6 @@ const menuData = [
     path: 'distribution',
     children: [
       {
-        name: '报价分配规则',
-        path: 'quote',
-      },
-      {
         name: '调度分配规则',
         path: 'dispatch',
       },

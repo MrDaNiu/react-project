@@ -1,8 +1,6 @@
 import React from 'react';
 import { Row, Input, Col, Select, Table, Button } from 'antd';
-// import BreadcrumbCustom from '../BreadcrumbCustom';
 import { TaskAllList } from '../../services/dispatch';
-// import '../../style/dispatch.less';
 
 const Option = Select.Option;
 const columns = [

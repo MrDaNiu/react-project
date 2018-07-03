@@ -131,9 +131,6 @@ export const getRouterData = app => {
     '/dispatch/list': {
       component: dynamicWrapper(app, [], () => import('../routes/Dispatch/List')),
     },
-    '/distribution/quote': {
-      component: dynamicWrapper(app, [], () => import('../routes/Distribution/Quote')),
-    },
     '/distribution/dispatch': {
       component: dynamicWrapper(app, [], () => import('../routes/Distribution/Dispatch')),
     },

@@ -1,48 +1,14 @@
 import React, { PureComponent } from 'react';
-import { Menu, Icon, Spin, Tag, Dropdown, Avatar, Divider, Tooltip } from 'antd';
+import { Menu, Icon, Spin, Tag, Dropdown, Avatar, Divider } from 'antd';
 import moment from 'moment';
 import groupBy from 'lodash/groupBy';
 import Debounce from 'lodash-decorators/debounce';
 import { Link } from 'dva/router';
-import NoticeIcon from '../NoticeIcon';
-import HeaderSearch from '../HeaderSearch';
 import styles from './index.less';
 
 export default class GlobalHeader extends PureComponent {
   componentWillUnmount() {
     this.triggerResizeEvent.cancel();
-  }
-
-  getNoticeData() {
-    const { notices } = this.props;
-    if (notices == null || notices.length === 0) {
-      return {};
-    }
-    const newNotices = notices.map(notice => {
-      const newNotice = { ...notice };
-      if (newNotice.datetime) {
-        newNotice.datetime = moment(notice.datetime).fromNow();
-      }
-      // transform id to item key
-      if (newNotice.id) {
-        newNotice.key = newNotice.id;
-      }
-      if (newNotice.extra && newNotice.status) {
-        const color = {
-          todo: '',
-          processing: 'blue',
-          urgent: 'red',
-          doing: 'gold',
-        }[newNotice.status];
-        newNotice.extra = (
-          <Tag color={color} style={{ marginRight: 0 }}>
-            {newNotice.extra}
-          </Tag>
-        );
-      }
-      return newNotice;
-    });
-    return groupBy(newNotices, 'type');
   }
 
   toggle = () => {
@@ -63,12 +29,9 @@ export default class GlobalHeader extends PureComponent {
     const {
       currentUser = {},
       collapsed,
-      fetchingNotices,
       isMobile,
       logo,
-      onNoticeVisibleChange,
       onMenuClick,
-      onNoticeClear,
     } = this.props;
     if (currentUser == null) {
       currentUser = {};
@@ -87,7 +50,7 @@ export default class GlobalHeader extends PureComponent {
         </Menu.Item>
       </Menu>
     );
-    const noticeData = this.getNoticeData();
+    const defaultAvatar = require('../../../public/favicon.png');
     return (
       <div className={styles.header}>
         {isMobile && [
@@ -105,7 +68,7 @@ export default class GlobalHeader extends PureComponent {
           {currentUser.name ? (
             <Dropdown overlay={menu}>
               <span className={`${styles.action} ${styles.account}`}>
-                <Avatar size="small" className={styles.avatar} src={currentUser.avatar}/>
+                <Avatar size="small" className={styles.avatar} src={currentUser.avatar?currentUser.avatar:defaultAvatar}/>
                 <span className={styles.name}>{currentUser.name}</span>
               </span>
             </Dropdown>

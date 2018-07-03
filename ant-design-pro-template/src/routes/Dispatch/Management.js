@@ -1,8 +1,6 @@
 import React from 'react';
 import { Row, Input, Col, Select, Table, Button } from 'antd';
-// import BreadcrumbCustom from '../BreadcrumbCustom';
-import { ManageList } from '../../services/dispatch';
-// import '../../style/dispatch.less';
+import { getSchedulerManageList } from '../../services/dispatch';
 
 const Option = Select.Option;
 const columns = [
@@ -91,15 +89,22 @@ export default class Dashboard extends React.Component {
   getData = () => {
     this.setState({ loading: true });
     let params = Object.assign({}, this.state.params);
-    ManageList(params).then(response => {
-      this.setState({
-        dataSource: response.data.list,
-        loading: false,
-      });
+    getSchedulerManageList(params).then(response => {
+      if (response && response.data && response.data.list) {
+        this.setState({
+          dataSource: response.data.list,
+          loading: false,
+        });
+      } else {
+        this.setState({
+          loading: false,
+        });
+      }
     });
   };
 
-  Reset = () => {};
+  Reset = () => {
+  };
 
   render() {
     return (
@@ -109,13 +114,13 @@ export default class Dashboard extends React.Component {
           <Col className="row-glob search-row" lg={8} sm={12} xs={24}>
             <label htmlFor="orderSn">运单号</label>
             <div className={'form-element'}>
-              <Input id="orderSn" placeholder="请输入订单号" />
+              <Input id="orderSn" placeholder="请输入订单号"/>
             </div>
           </Col>
           <Col className="row-glob search-row" lg={8} sm={12} xs={24}>
             <label htmlFor="customerName">货主姓名</label>
             <div className={'form-element'}>
-              <Input id="customerName" placeholder="请输入货主姓名" />
+              <Input id="customerName" placeholder="请输入货主姓名"/>
             </div>
           </Col>
           <Col className="row-glob search-row" lg={8} sm={12} xs={24}>
@@ -134,25 +139,25 @@ export default class Dashboard extends React.Component {
           <Col className="row-glob search-row" lg={8} sm={12} xs={24}>
             <label htmlFor="customerMobile">货主电话</label>
             <div className={'form-element'}>
-              <Input id="customerMobile" placeholder="请输入货主电话" />
+              <Input id="customerMobile" placeholder="请输入货主电话"/>
             </div>
           </Col>
           <Col className="row-glob search-row" lg={8} sm={12} xs={24}>
             <label htmlFor="driverName">司机姓名</label>
             <div className={'form-element'}>
-              <Input id="driverName" placeholder="请输入司机姓名" />
+              <Input id="driverName" placeholder="请输入司机姓名"/>
             </div>
           </Col>
           <Col className="row-glob search-row" lg={8} sm={12} xs={24}>
             <label htmlFor="driverMobile">司机电话</label>
             <div className={'form-element'}>
-              <Input id="driverMobile" placeholder="请输入司机电话" />
+              <Input id="driverMobile" placeholder="请输入司机电话"/>
             </div>
           </Col>
           <Col className="row-glob search-row" lg={8} sm={12} xs={24}>
             <label htmlFor="adminId">调度人</label>
             <div className={'form-element'}>
-              <Input id="adminId" placeholder="请输入调度人" />
+              <Input id="adminId" placeholder="请输入调度人"/>
             </div>
           </Col>
           <Col className="row-glob search-row" lg={8} sm={12} xs={24}>
@@ -175,7 +180,7 @@ export default class Dashboard extends React.Component {
           </Col>
         </Row>
         <Row>
-          <Table dataSource={this.state.dataSource} columns={columns} />
+          <Table dataSource={this.state.dataSource} columns={columns}/>
         </Row>
       </div>
     );
